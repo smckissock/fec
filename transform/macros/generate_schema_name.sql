@@ -2,19 +2,19 @@
 This macro overrides dbt's default schema naming behavior.
 
 By default, dbt appends custom schema names to the target schema from profiles.yml.
-For example, with target schema 'raw' and model schema 'normalized', 
-dbt would create: raw_normalized
+For example, with target schema 'raw' and model schema 'staging', 
+dbt would create: raw_staging
 
 This macro removes that behavior and uses the exact schema name specified 
-in the model configuration, so 'normalized' creates schema 'NORMALIZED' directly.
+in the model configuration, so 'staging' creates schema 'staging' directly.
 
 This is useful when you want:
-- Exact control over schema names (NORMALIZED, DIMENSIONAL, ANALYTICS)
+- Exact control over schema names (STAGING, DIMENSIONAL, ANALYTICS)
 - To use pre-existing schemas without prefixes
 - Schema names that match your naming conventions exactly
 
-Without this macro: FEC.RAW_NORMALIZED.candidate
-With this macro: FEC.NORMALIZED.candidate
+Without this macro: FEC.RAW_STAGING.candidate
+With this macro: FEC.STAGING.candidate
 #}
 
 

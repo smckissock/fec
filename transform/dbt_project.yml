@@ -26,8 +26,8 @@ clean-targets:         # directories to be removed by `dbt clean`
 # Full documentation: https://docs.getdbt.com/docs/configuring-models
 models:
   transform:
-    normalized:
-      +schema: normalized   
+    staging:
+      +schema: staging   
     dimensional:
       +schema: dimensional
     analytics:
