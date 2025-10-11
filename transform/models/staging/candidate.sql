@@ -1,2 +1,2 @@
--- models/normalized/candidate.sql
+-- models/staging/candidate.sql
 select * from {{ source('raw', 'candidate') }}
