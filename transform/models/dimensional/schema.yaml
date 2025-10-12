@@ -231,4 +231,94 @@ models:
           - not_null   
       - name: updated_at
         tests:
-          - not_null                                                
+          - not_null            
+
+  - name: dim_candidate
+    description: "Dimensional model of FEC candidates with integer foreign keys to reference tables"
+    columns:
+      - name: id
+        tests:
+          - unique
+          - not_null
+          
+      - name: cand_id
+        description: "FEC candidate identification number"
+        tests:
+          - unique
+          - not_null
+          
+      - name: cand_name
+        description: "Candidate name"
+        tests:
+          - not_null
+      
+      # Foreign Keys
+      - name: party_id
+        description: "Foreign key to dim_party table"
+        tests:
+          - relationships:
+              to: ref('dim_party')
+              field: id
+          - not_null 
+
+      - name: office_id
+        description: "Foreign key to dim_office table"
+        tests:
+          - relationships:
+              to: ref('dim_office')
+              field: id
+          - not_null     
+
+      - name: office_state_id
+        description: "Foreign key to dim_state table for office state"
+        tests:
+          - relationships:
+              to: ref('dim_state')
+              field: id
+          - not_null 
+
+      - name: candidate_status_id
+        description: "Foreign key to dim_candidate_status"
+        tests:
+          - relationships:
+              to: ref('dim_candidate_status')
+              field: id
+          - not_null 
+          
+      - name: incumbent_challenger_status_id
+        description: "Foreign key to dim_incumbent_challenger_status"
+        tests:
+          - relationships:
+              to: ref('dim_incumbent_challenger_status')
+              field: id
+          - not_null 
+
+      - name: mailing_state_id
+        description: "Foreign key to dim_states"
+        tests:
+          - relationships:
+              to: ref('dim_state')
+              field: id
+          - not_null 
+          
+      # Descriptive Attributes  
+      - name: election_year
+        description: "Year of election"
+        
+      - name: office_district
+        description: "Congressional district number"
+        
+      - name: principal_campaign_committee
+        description: "Principal campaign committee ID"
+        
+      - name: street_1
+        description: "Mailing address street 1"
+        
+      - name: street_2
+        description: "Mailing address street 2"
+        
+      - name: city
+        description: "Mailing address city"
+        
+      - name: zip_code
+        description: "Mailing address ZIP code"                                            
