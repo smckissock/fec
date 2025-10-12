@@ -1,0 +1,64 @@
+version: 2
+
+models:
+  - name: dim_state
+    description: "State dimension table with surrogate key"
+    columns:
+      - name: id
+        description: "Primary key for state dimension"
+        tests:
+          - unique
+          - not_null          
+      - name: code
+        description: "Two-letter state code (natural key)"
+        tests:
+          - unique
+          - not_null          
+      - name: name
+        description: "Full state name"
+        tests:
+          - unique
+          - not_null          
+      - name: updated_at
+        tests:
+          - not_null
+
+  - name: dim_ammendment_code
+    description: "Indicates if the report being filed is new (N), an amendment (A) to a previous report or a termination (T) report"
+    columns:
+      - name: id
+        description: "Primary key for amendment code dimension"
+        tests:
+          - unique
+          - not_null
+      - name: code
+        tests:
+          - unique
+          - not_null
+      - name: name
+        tests:
+          - unique
+          - not_null
+      - name: updated_at
+        tests:
+          - not_null     
+
+  - name: dim_candidate_status
+    description: "C = Statutory candidate, F = Statutory candidate for future election, N = Not yet a statutory candidate, P = Statutory candidate in prior cycle"
+    columns:
+      - name: id
+        description: "Primary key for candidate_status dimension"
+        tests:
+          - unique
+          - not_null
+      - name: code
+        tests:
+          - unique
+          - not_null
+      - name: name
+        tests:
+          - unique
+          - not_null
+      - name: updated_at
+        tests:
+          - not_null             

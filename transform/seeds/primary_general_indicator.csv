@@ -2,7 +2,7 @@
 P,Primary
 R,Runoff
 S,Special
-NULL,Unspecified
+-,Unspecified
 G,General
 C,Convention
 O,Other

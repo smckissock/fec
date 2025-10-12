@@ -1,4 +1,3 @@
-
 name: 'transform'
 version: '1.0.0'
 
@@ -32,8 +31,6 @@ models:
     +persist_docs:   # Stores any descriptions in schema.yml as table comments
       relation: true
       columns: true
-    staging:
-      +schema: staging   
     dimensional:
       +schema: dimensional
     analytics:

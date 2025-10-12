@@ -1,8 +1,8 @@
 ﻿code,name
-COM,Candidate Committee
+COM,Committee
 PTY,Party Organization
-IND,Individual
-ORG,Organization
+IND,Individual (a person)
+ORG,Organization (not a committee and not a person)
 PAC,Political Action Committee
 CAN,Candidate
 CCM,Candidate Committee

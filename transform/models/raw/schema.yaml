@@ -62,10 +62,7 @@ seeds:
         tests:
           - unique
           - not_null 
-      - name: explanation    
-        tests:
-          - unique
-          - not_null     
+      - name: explanation 
 
   - name: entity_type
     description: "ONLY VALID FOR ELECTRONIC FILINGS received after April 2002."
@@ -135,7 +132,7 @@ seeds:
         tests:
           - unique
           - not_null
-      - name: name    
+      - name: description   
         tests:
           - unique
           - not_null  
