@@ -40,7 +40,7 @@ seeds:
           - not_null     
 
   - name: committee_designation
-    description: "A = Authorized by a candidate, B = Lobbyist/Registrant PAC, D = Leadership PAC, J = Joint fundraiser, P = Principal campaign committee of a candidate, U = Unauthorized"
+    description: "A=Authorized by a candidate, B=Lobbyist/Registrant PAC, D=Leadership PAC, J=Joint fundraiser, P=Principal campaign committee of a candidate, U=Unauthorized"
     columns:
       - name: code
         tests:
@@ -52,7 +52,7 @@ seeds:
           - not_null            
 
   - name: committee_type
-    description: "Many - presidential, senate, PAC, etc."
+    description: "Many - presidential, senate, PAC, etc"
     columns:
       - name: code
         tests:
@@ -65,7 +65,7 @@ seeds:
       - name: explanation 
 
   - name: entity_type
-    description: "ONLY VALID FOR ELECTRONIC FILINGS received after April 2002."
+    description: "ONLY VALID FOR ELECTRONIC FILINGS received after April 2002"
     columns:
       - name: code
         tests:
@@ -77,7 +77,7 @@ seeds:
           - not_null
 
   - name: incumbent_challenger_status
-    description: "C = Challenger, I = Incumbent,O = Open Seat is used to indicate an open seat; Open seats are defined as seats where the incumbent never sought re-election."
+    description: "C=Challenger, I=Incumbent, O=Open Seat is used to indicate an open seat; Open seats are defined as seats where the incumbent never sought re-election"
     columns:
       - name: code
         tests:
@@ -89,7 +89,7 @@ seeds:
           - not_null
 
   - name: office
-    description: "H = House, P = President, S = Senate"
+    description: "H=House, P=President, S=Senate"
     columns:
       - name: code
         tests:
@@ -101,7 +101,7 @@ seeds:
           - not_null  
 
   - name: party
-    description: "The political party affiliation reported by the candidate."
+    description: "The political party affiliation reported by the candidate"
     columns:
       - name: code
         tests:
@@ -114,7 +114,7 @@ seeds:
       - name: notes           
 
   - name: primary_general_indicator
-    description: "P = Primary, G = General, O = Other, C = Convention, R = Runoff, S = Special, E = Recount"
+    description: "P=Primary, G=General, O=Other, C=Convention, R=Runoff, S=Special, E=Recount"
     columns:
       - name: code
         tests:
@@ -124,6 +124,18 @@ seeds:
         tests:
           - unique
           - not_null      
+
+  - name: report_type
+    description: "Indicates the type of report filed"
+    columns:
+      - name: code
+        tests:
+          - unique
+          - not_null
+      - name: name    
+        tests:
+          - unique
+          - not_null           
 
   - name: transaction_type
     description: "Transaction types 24A, 24C, 24E, 24F, 24H, 24K, 24N, 24P, 24R, 24Z are included in the PAS2 file"
