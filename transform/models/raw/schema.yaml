@@ -148,3 +148,27 @@ seeds:
         tests:
           - unique
           - not_null  
+
+  - name: committee_filing_frequency
+    description: "A=Administratively terminated, D=Debt, M=Monthly filer, Q=Quarterly filer, T=Terminated, W=Waived"
+    columns:
+      - name: code
+        tests:
+          - unique
+          - not_null
+      - name: name   
+        tests:
+          - unique
+          - not_null 
+
+  - name: interest_group_category
+    description: "C=Corporation, L=Labor organization, M=Membership organization, T=Trade association, V=Cooperative, W=Corporation without capital stock"
+    columns:
+      - name: code
+        tests:
+          - unique
+          - not_null
+      - name: name   
+        tests:
+          - unique
+          - not_null               

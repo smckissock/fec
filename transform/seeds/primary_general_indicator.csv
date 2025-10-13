@@ -1,10 +1,8 @@
 ﻿code,name
--,Other
+O,Other
 P,Primary
 R,Runoff
 S,Special
--,Unspecified
 G,General
 C,Convention
-O,Other
 E,Recount
