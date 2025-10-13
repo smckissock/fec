@@ -434,5 +434,11 @@ models:
       - rowcount_match:
           compare_to: ref('dim_candidate')
 
+  - name: dim_committee_view
+    description: "Denormalized view of committees with all dimension lookups for easy querying"
+    tests:
+      - rowcount_match:
+          compare_to: ref('dim_committee')        
+
 
 
