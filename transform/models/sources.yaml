@@ -6,7 +6,9 @@ sources:
     schema: raw
     tables:
       - name: candidate
-      - name: CANDIDATE_COMMITTEE
-      - name: COMMITTEE
-      - name: COMMITTEE_CONTRIBUTION
-      - name: INDIVIDUAL_CONTRIBUTION
+      - name: candidate_committee
+      - name: committee
+      - name: committee_contribution
+      - name: individual_contribution
+
+  

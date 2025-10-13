@@ -323,6 +323,108 @@ models:
       - name: zip_code
         description: "Mailing address ZIP code"          
 
+  - name: dim_committee
+    description: "Dimensional model of FEC committees with integer foreign keys to reference tables"
+    columns:
+      - name: id
+        description: "Auto-incrementing surrogate primary key"
+        tests:
+          - unique
+          - not_null
+          
+      - name: cmte_id
+        description: "FEC committee identification number"
+        tests:
+          - unique
+          - not_null
+          
+      - name: committee_name
+        description: "Committee name"
+        tests:
+          - not_null
+          
+      - name: treasurer_name
+        description: "Treasurer name"
+      
+      # Foreign Keys
+      - name: state_id
+        description: "Foreign key to dim_state table"
+        tests:
+          - relationships:
+              to: ref('dim_state')
+              field: id
+          - not_null
+
+      - name: committee_designation_id
+        description: "Foreign key to dim_committee_designation table"
+        tests:
+          - relationships:
+              to: ref('dim_committee_designation')
+              field: id
+          - not_null
+
+      - name: committee_type_id
+        description: "Foreign key to dim_committee_type table"
+        tests:
+          - relationships:
+              to: ref('dim_committee_type')
+              field: id
+          - not_null
+
+      - name: party_id
+        description: "Foreign key to dim_party table"
+        tests:
+          - relationships:
+              to: ref('dim_party')
+              field: id
+          - not_null
+
+      - name: entity_type_id
+        description: "Foreign key to dim_entity_type table"
+        tests:
+          - relationships:
+              to: ref('dim_entity_type')
+              field: id
+          - not_null
+
+      - name: filing_frequency_id
+        description: "Foreign key to dim_committee_filing_frequency table"
+        tests:
+          - relationships:
+              to: ref('dim_committee_filing_frequency')
+              field: id
+          - not_null
+
+      - name: interest_group_category_id
+        description: "Foreign key to dim_interest_group_category table"
+        tests:
+          - relationships:
+              to: ref('dim_interest_group_category')
+              field: id
+          - not_null
+
+      - name: candidate_id
+        description: "Foreign key to dim_candidate table (nullable for committees not linked to candidates)"
+        tests:
+          - relationships:
+              to: ref('dim_candidate')
+              field: id
+
+      # Descriptive Attributes  
+      - name: street_1
+        description: "Mailing address street 1"
+        
+      - name: street_2
+        description: "Mailing address street 2"
+        
+      - name: city
+        description: "Mailing address city"
+        
+      - name: zip_code
+        description: "Mailing address ZIP code"
+        
+      - name: connected_organization_name
+        description: "Name of connected organization"
 
   # Views
   - name: dim_candidate_view
@@ -331,3 +433,6 @@ models:
       # Confirm the dim_candidate_view has equal # of rows as the base dim_candidate
       - rowcount_match:
           compare_to: ref('dim_candidate')
+
+
+
