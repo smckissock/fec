@@ -235,6 +235,9 @@ models:
 
   - name: dim_candidate
     description: "Dimensional model of FEC candidates with integer foreign keys to reference tables"
+    tests:
+      - rowcount_match:
+          compare_to: "{{ source('raw', 'candidate') }}"
     columns:
       - name: id
         tests:
@@ -325,6 +328,9 @@ models:
 
   - name: dim_committee
     description: "Dimensional model of FEC committees with integer foreign keys to reference tables"
+    tests:
+      - rowcount_match:
+          compare_to: "{{ source('raw', 'committee') }}"
     columns:
       - name: id
         description: "Auto-incrementing surrogate primary key"
@@ -425,6 +431,260 @@ models:
         
       - name: connected_organization_name
         description: "Name of connected organization"
+
+
+  - name: fact_committee_contribution
+    description: "Committee contributions to candidates"
+    tests:
+      # Confirm we got all the rows from the source table
+      - rowcount_match:
+          compare_to: "{{ source('raw', 'committee_contricflearbution') }}"
+    columns:
+      - name: id
+        description: "Auto-incrementing surrogate primary key"
+        tests:
+          - unique
+          - not_null
+          
+      - name: sub_id
+        description: "FEC submission ID (unique transaction identifier)"
+        tests:
+          - unique
+          - not_null
+          
+      - name: transaction_id
+        description: "Transaction ID"
+        
+      - name: file_number
+        description: "File number"
+        
+      - name: image_number
+        description: "Image number"
+      
+      # Foreign Keys
+      - name: committee_id
+        description: "Foreign key to dim_committee table"
+        tests:
+          - relationships:
+              to: ref('dim_committee')
+              field: id
+          - not_null
+
+      - name: candidate_id
+        description: "Foreign key to dim_candidate table (nullable)"
+        tests:
+          - relationships:
+              to: ref('dim_candidate')
+              field: id
+
+      - name: state_id
+        description: "Foreign key to dim_state table for contributor state"
+        tests:
+          - relationships:
+              to: ref('dim_state')
+              field: id
+          - not_null
+
+      - name: amendment_indicator_id
+        description: "Foreign key to dim_ammendment_code table"
+        tests:
+          - relationships:
+              to: ref('dim_ammendment_code')
+              field: id
+          - not_null
+
+      - name: report_type_id
+        description: "Foreign key to dim_report_type table"
+        tests:
+          - relationships:
+              to: ref('dim_report_type')
+              field: id
+          - not_null
+
+      - name: primary_general_indicator_id
+        description: "Foreign key to dim_primary_general_indicator table"
+        tests:
+          - relationships:
+              to: ref('dim_primary_general_indicator')
+              field: id
+          - not_null
+
+      - name: transaction_type_id
+        description: "Foreign key to dim_transaction_type table"
+        tests:
+          - relationships:
+              to: ref('dim_transaction_type')
+              field: id
+          - not_null
+
+      - name: entity_type_id
+        description: "Foreign key to dim_entity_type table"
+        tests:
+          - relationships:
+              to: ref('dim_entity_type')
+              field: id
+          - not_null
+
+      - name: transaction_date
+        description: "Date of the transaction"
+        # For 2025-2026 15 of these were null
+        # tests:
+        #  - not_null    
+
+      # Measures
+      - name: transaction_amount
+        description: "Transaction amount in dollars"
+        tests:
+          - not_null
+      
+      # Contributor Information
+      - name: contributor_name
+        description: "Name of the contributor"
+        
+      - name: contributor_city
+        description: "City of the contributor"
+        
+      - name: contributor_zip_code
+        description: "ZIP code of the contributor"
+        
+      - name: contributor_employer
+        description: "Employer of the contributor"
+        
+      - name: contributor_occupation
+        description: "Occupation of the contributor"
+      
+      # Other Fields
+      - name: other_id
+        description: "Other ID field"
+        
+      - name: memo_code
+        description: "Memo code"
+        
+      - name: memo_text
+        description: "Memo text"     
+
+
+  - name: fact_individual_contribution
+    description: "Individual contributions to committees"
+    tests:
+    # Confirm we got all the rows from the source table
+    - rowcount_match:
+        compare_to: "{{ source('raw', 'individual_contribution') }}"
+
+    columns:
+      - name: id
+        description: "Auto-incrementing surrogate primary key"
+        tests:
+          - unique
+          - not_null
+          
+      - name: sub_id
+        description: "FEC submission ID (unique transaction identifier)"
+        tests:
+          - unique
+          - not_null
+          
+      - name: transaction_id
+        description: "Transaction ID"
+        
+      - name: file_number
+        description: "File number"
+        
+      - name: image_number
+        description: "Image number"
+      
+      # Foreign Keys
+      - name: committee_id
+        description: "Foreign key to dim_committee table"
+        tests:
+          - relationships:
+              to: ref('dim_committee')
+              field: id
+          - not_null
+
+      - name: state_id
+        description: "Foreign key to dim_state table for contributor state"
+        tests:
+          - relationships:
+              to: ref('dim_state')
+              field: id
+          - not_null
+
+      - name: amendment_indicator_id
+        description: "Foreign key to dim_ammendment_code table"
+        tests:
+          - relationships:
+              to: ref('dim_ammendment_code')
+              field: id
+          - not_null
+
+      - name: report_type_id
+        description: "Foreign key to dim_report_type table"
+        tests:
+          - relationships:
+              to: ref('dim_report_type')
+              field: id
+          - not_null
+
+      - name: primary_general_indicator_id
+        description: "Foreign key to dim_primary_general_indicator table"
+        tests:
+          - relationships:
+              to: ref('dim_primary_general_indicator')
+              field: id
+          - not_null
+
+      - name: transaction_type_id
+        description: "Foreign key to dim_transaction_type table"
+        tests:
+          - relationships:
+              to: ref('dim_transaction_type')
+              field: id
+          - not_null
+
+      - name: entity_type_id
+        description: "Foreign key to dim_entity_type table"
+        tests:
+          - relationships:
+              to: ref('dim_entity_type')
+              field: id
+          - not_null
+
+      # Measures and Facts
+      - name: transaction_date
+        description: "Date of the transaction"
+          
+      - name: transaction_amount
+        description: "Transaction amount in dollars"
+        tests:
+          - not_null
+      
+      # Contributor Information
+      - name: contributor_name
+        description: "Name of the contributor"
+        
+      - name: contributor_city
+        description: "City of the contributor"
+        
+      - name: contributor_zip_code
+        description: "ZIP code of the contributor"
+        
+      - name: contributor_employer
+        description: "Employer of the contributor"
+        
+      - name: contributor_occupation
+        description: "Occupation of the contributor"
+      
+      # Other Fields
+      - name: other_id
+        description: "Other ID field"
+        
+      - name: memo_code
+        description: "Memo code"
+        
+      - name: memo_text
+        description: "Memo text"       
+
 
   # Views
   - name: dim_candidate_view
