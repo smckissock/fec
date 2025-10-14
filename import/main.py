@@ -16,7 +16,7 @@ def connect_snowflake():
       - SNOWFLAKE_ACCOUNT    (e.g., xy12345.us-east-1)
       - SNOWFLAKE_WAREHOUSE
       - SNOWFLAKE_DATABASE
-      - SNOWFLAKE_SCHEMA
+      - SNOWFLAKE_RAW_SCHEMA
       - SNOWFLAKE_ROLE       (optional but recommended)
     """
     params = dict(
@@ -25,7 +25,7 @@ def connect_snowflake():
         account=os.environ["SNOWFLAKE_ACCOUNT"],
         warehouse=os.environ["SNOWFLAKE_WAREHOUSE"],
         database=os.environ["SNOWFLAKE_DATABASE"],
-        schema=os.environ["SNOWFLAKE_SCHEMA"],
+        schema=os.environ["SNOWFLAKE_RAW_SCHEMA"],
     )
     role = os.environ.get("SNOWFLAKE_ROLE")
     if role:
