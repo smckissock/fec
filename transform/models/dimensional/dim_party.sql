@@ -17,7 +17,6 @@ add_surrogate_key as (
         row_number() over (order by code) as id,
         code,
         name,
-        notes,
         current_timestamp() as updated_at
         
     from source
