@@ -1,0 +1,101 @@
+dialog#exportDialog {
+  /* center the dialog */
+  left: calc( 50vw - 350px );
+  top: calc( 50vh - 230px );
+    
+  width: 700px;
+  height: 460px;
+  resize: both;
+  
+  > header {
+    > form {
+      > input#exportTitleTemplate {
+        width: calc( 100% - 14px);
+      }
+    }
+    
+    > h3 {
+      position: relative;
+    }
+  }
+  
+  > dialog[role=progressbar] {
+    z-index: 1;
+    width: 200px;
+    
+    > header > h3[role=status] {
+      font-size: smaller;
+    }
+  }
+  
+  #exportDelimitedDateFormat,
+  #exportDelimitedTimestampFormat,
+  #exportDelimitedNullString,
+  #exportDelimitedColumnDelimiter,
+  #exportDelimitedQuote,
+  #exportDelimitedEscape,
+  #exportJsonDateFormat,
+  #exportJsonTimestampFormat {
+    font-family: var( --huey-mono-font-family );
+  }
+  
+}
+
+form > fieldset {
+  grid-column: span 1;
+}
+
+dialog#exportDialog[aria-busy=true] > dialog[role=progressbar] {
+  display: flex;
+  flex-direction: column;
+}
+
+dialog#exportDialog[aria-busy=false] > dialog[role=progressbar] {
+  display: none;
+}
+
+
+menu[role=toolbar] > label[for=exportButton]:has( > button#exportButton ) {
+  float: right;
+}
+
+menu[role=toolbar] > label[for=exportButton]:has( > button#exportButton )::before {
+  content: var( --icon-download );
+}
+
+/* export is not available by default, ...  */
+menu[role=toolbar] > label[for=exportButton]:has( > button#exportButton ) {
+  display: none;
+}
+
+/* ...but one when either the columns, rows or cells axis has at least one item, the export button is available. */
+body > main:has( > #workarea > #queryUi > section[data-axis=columns] > ol > li ) > menu[role=toolbar] > label[for=exportButton],
+body > main:has( > #workarea > #queryUi > section[data-axis=rows] > ol > li ) > menu[role=toolbar] > label[for=exportButton],
+body > main:has( > #workarea > #queryUi > section[data-axis=cells] > ol > li ) > menu[role=toolbar] > label[for=exportButton]
+{
+  display: block;
+}
+
+form#exportParquetSettings {
+  > fieldset:has( > input#exportParquetCompressionLevel ) {
+
+    > label[for=exportParquetCompressionLevel] {
+      display: none;
+    }
+
+    > input#exportParquetCompressionLevel {
+      display: none;
+    }
+  }
+
+  > fieldset:has( > select#exportParquetCompression > option[value=ZSTD]:checked ) {
+    > label[for=exportParquetCompressionLevel] {
+      display: inline;
+    }
+
+    > input#exportParquetCompressionLevel {
+      display: inline;
+    }
+  }
+
+}

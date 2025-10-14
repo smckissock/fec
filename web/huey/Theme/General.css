@@ -1,0 +1,466 @@
+/*
+We keep this one around here for reference, but 
+
+@font-face {
+  font-family: "tabler-icons";
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url("https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/fonts/tabler-icons.woff2?v2.47.0") format("woff2");
+}
+*/
+:root {
+  /*
+  * Huey text font
+  */
+  --huey-text-font-family: system-ui;
+  --huey-text-font-size: 10pt;
+  --huey-mono-font-family: monospace;
+  
+  /**
+  * Huey text font colors
+  */
+  --huey-foreground-color: rgb(50,50,50);
+  --huey-placeholder-color: rgb(180,180,180);
+  --huey-highlight-color: white;
+    
+  /**
+  * Huey background colors
+  */
+  --huey-light-background-color: rgb(250,250,250);
+  --huey-medium-background-color: rgb(245,245,245);
+  --huey-dark-background-color: rgb(210,210,210);
+  --huey-highlight-background-color: rgb(050, 150, 255);
+  
+  --huey-alternating-rows-brightness: 99%;
+  
+  /**
+  * Huey border colors
+  */
+  --huey-light-border-color: rgb(222,222,222);
+  --huey-dark-border-color: rgb(175,175,175);
+  --huey-darkest-border-color: rgb(100,100,100);
+  
+  /**
+  * Huey icon font
+  */
+  --huey-icon-font-family: tabler-icons;
+  --huey-icon-small: 14px;
+  --huey-icon-medium: 18px;
+  --huey-icon-normal: 20px;
+  --huey-icon-large: 24px;
+
+  /**
+  * Huey icon font colors
+  */
+  --huey-icon-color-subtle: rgb(185,185,185);
+  --huey-icon-color: rgb(50,50,50);
+  --huey-icon-color-highlight: rgb(0,0,0);
+}
+
+* {
+  scrollbar-color: var( --huey-medium-background-color );
+}
+
+*[aria-busy=true] {
+  cursor: wait;
+}
+
+/**
+*
+* Default Element Appearance
+*
+*/
+body, html {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  padding: 0px;
+  overflow:hidden;
+}
+
+body {
+  font-family: var( --huey-text-font-family );
+  font-size: var( --huey-text-font-size );
+  color: var( --huey-foreground-color );
+  background-color: var( --huey-medium-background-color );
+}
+
+input, select:not([multiple]), button {
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 14px;
+  height: 22px;
+}
+
+input[type=radio] {
+  width: 12px;
+}
+
+select[multiple] {
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 14px 0px 0px 14px;
+}
+
+input[type=text], 
+input[type=search],
+input[type=checkbox], 
+input[type=number],
+select {
+  border-color: var( --huey-light-border-color );
+  background-color: var( --huey-light-background-color );
+  padding: 0px 2px 0px 8px;
+}
+
+input::placeholder {
+  color: var( --huey-placeholder-color );
+}
+
+select:focus, 
+select:focus-visible, 
+select:active, 
+input:focus, 
+input:focus-visible, 
+input:active {
+  border-color: var( --huey-dark-border-color );
+  border-width: 1px;
+  box-shadow: 0 0 3px var( --huey-dark-border-color );  
+  outline-width: 0px;
+  outline-color: var( --huey-dark-border-color );
+  color: var( --huey-foreground-color );
+}
+
+button:focus, 
+button:focus-visible {
+  outline-style: solid;
+  outline-width: 1px;
+  outline-color: var( --huey-dark-border-color );
+  box-shadow: 0 0 3px var( --huey-dark-border-color );
+  background-color: var( --huey-light-background-color );
+}
+
+input[type=file]::file-selector-button {
+}
+
+input:invalid {
+  color: red;
+  border-color: red;
+}
+
+button {
+  border-color: var( --huey-dark-border-color );
+  background-color: var( --huey-dark-background-color );
+}
+
+@keyframes blink-live{
+    0% { opacity: 1.0; }
+    50% { opacity: 0.0; }
+    100% { opacity: 1.0; }
+}
+
+label:has( button[aria-busy=true] ) {
+  pointer-events: none;
+  cursor: wait;
+  animation: blink-live 2s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+}
+
+fieldset {
+  margin: 0.5em 0.25em .5em 0.25em;
+  border-color: var( --huey-light-border-color );
+  border-width: 1px;
+}
+
+fieldset > legend {
+  font-size: x-small;
+}
+
+dialog {
+  background-color: var( --huey-medium-background-color );
+  border-style: solid;
+  border-width: 1px;
+  border-color: var( --huey-dark-border-color );
+  border-radius: 18px;
+  padding: 0em 1em 0em 1em;
+  color: var( --huey-foreground-color );
+}
+
+dialog::-webkit-scrollbar-corner,
+dialog *::-webkit-scrollbar-corner {
+  background-color: var( --huey-medium-background-color );
+}
+
+dialog:popover-open,
+dialog[open] {
+  display: flex;
+  flex-direction: column;
+}
+
+/* this is used as dialog title section */
+dialog > header {
+  flex-grow: 0;
+  color: var( --huey-foreground-color );
+  position: sticky;
+  top: 0px;
+  background-color: var( --huey-medium-background-color );
+  padding: .5em 0em .5em 0em;
+  z-index: 1;
+}
+
+/* this is used as dialog contents section */
+dialog > section,
+dialog > form {
+  flex-grow: 1;
+}
+
+dialog > section[role=tablist],
+dialog > form[role=tablist] {
+  margin-top: 12px;
+}
+
+/* this is used as dialog buttons section */
+dialog > footer {
+  flex-grow: 0;
+  text-align: center;
+  position: sticky;
+  bottom: 0px;
+  background-color: var( --huey-medium-background-color );
+  padding: .5em 0em .5em 0em;
+}
+
+dialog > footer button {
+  width: 6em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var( --huey-foreground-color );
+  margin-left:.5em;
+  margin-right:.5em;
+}
+
+*[role=toolbar],
+*[role=toolbar] > button {
+  user-select: none;
+}
+
+dialog h1:first-child,
+dialog h2:first-child,
+dialog h3:first-child,
+dialog h4:first-child,
+dialog h5:first-child,
+dialog h6:first-child,
+dialog h7:first-child 
+{
+  margin-block-start: 0px;
+  margin-block-end: 0px;
+}
+
+form, form > fieldset {
+  display: grid;
+  grid-template-columns: [labels] auto [controls] 1fr;
+  grid-auto-flow: row;
+  grid-gap: 0.25em;
+  padding-top: 0.75em;
+}
+
+dialog > footer > form[role=toolbar][method=dialog] {
+  display: flex;
+  flex-direction: row;
+}
+
+form > fieldset {
+  grid-column: span 2;  
+}
+
+form > fieldset > label,
+form > label {
+  grid-column: labels;
+  grid-row: auto;
+  margin-top: 4px;
+  justify-self: end;
+}
+
+label {
+  color: var( --huey-foreground-color );
+  white-space: nowrap;
+}
+
+form > label::after, 
+form > fieldset > label::after {
+  content: ":"
+}
+
+form > output {
+  margin-top: 2px;
+}
+
+form > output, 
+form > fieldset > output, 
+form > input,
+form > fieldset > input,
+form > select,
+form > fieldset > select{
+  grid-column: controls;
+  grid-row: auto;
+  justify-self:start;
+  margin-top: 2px;
+}
+
+menu[role=menubar],
+menu[role=toolbar] {
+  list-style-type: none;
+  margin-block: 0px;
+  margin-inline: 0px;
+  padding-inline-start: 0px;
+  padding: 6px 0px 0px 4px;
+  height: 32px;
+  grid-column: 1/ span 2;
+  grid-row: 1/1;
+  overflow: hidden;
+}
+
+header[role=toolbar] > label > button,
+menu[role=toolbar] > label > button,
+menu[role=menu] > li[role=menuitem] > label > button {
+  display: none;
+}
+
+menu[role=menu] > li[role=menuitem] {
+  line-height: 24px;
+  padding: 2px 4px 2px 4px;
+  border-width: 1px;
+  white-space: nowrap;
+}
+
+/**
+* make the labels take the entire width of the menu.
+* this is to ensure that if the user clicks somewhere on the item, it will register as a click on the button inside the label.
+* if you don't do this, user has to click inside the label.
+*/
+menu[role=menu] > li[role=menuitem] > label:has( > button ),
+menu[role=menu] > li[role=menuitem] > label:has( > input[type=checkbox] ),
+ol[role=menu] > li[role=menuitem] > label:has( > input[type=checkbox] )
+{
+  display: inline-block;
+  width: 72%
+}
+
+header[role=toolbar] > label:has( > button )::before,
+menu[role=toolbar] > label:has( > button )::before,
+menu[role=toolbar] > label:has( > input[type=file] )::before,
+menu[role=menu] > li[role=menuitem] > label:has( > button)::before,
+*[role=menu] > li[role=menuitem] > label:has( > input[type=checkbox])::before 
+{  
+  font-family: var( --huey-icon-font-family );
+  font-size: var( --huey-icon-normal );
+  vertical-align: bottom;
+  color: var( --huey-icon-color-subtle );
+  margin: 0px 4px 0px 0px;
+  display: inline-block;
+}
+
+header[role=toolbar] > label:hover:has( > button )::before,
+menu[role=toolbar] > label:hover:has( > button )::before,
+menu[role=toolbar] > label:hover:has( > input[type=file] )::before,
+menu[role=menu] > li[role=menuitem]:hover > label:has( > button)::before,
+*[role=menu] > li[role=menuitem]:hover > label:has( > input[type=checkbox])::before
+{
+  color: var( --huey-icon-color-highlight );
+}
+
+code, pre {
+  font-family: var( --huey-mono-font-family );
+}
+
+*[role=separator][aria-orientation=vertical] {
+  display: inline-block;
+  border-width: 1px;
+  height: 28px;
+  border-left-style: solid;
+  border-left-color: var(--huey-light-border-color);
+  border-right-color: var(--huey-dark-border-color);
+  margin-left: 2px;
+  margin-right: 2px;
+}
+
+label[role=menuitem]:has( > menu[role=menu] ) {
+  border-width: 1px;
+  border-style: solid;
+  border-color: var( --huey-medium-background-color );
+  padding: 0px 2px 2px 0px;
+}
+
+label[role=menuitem]:has( > menu[role=menu][popover]:popover-open ){
+  background-color: var( --huey-dark-background-color );
+  border-color: var( --huey-dark-border-color ) var( --huey-light-border-color ) var( --huey-light-border-color ) var( --huey-dark-border-color );
+  padding: 2px 0px 0px 2px;
+}
+
+*[role=toolbar] > button:hover ,
+label[role=menuitem]:hover,
+menu[role=menu] > li[role=menuitem]:hover {
+  background-color: var( --huey-light-background-color );
+  border-color: var( --huey-light-border-color );
+}
+
+menu[role=menu] {
+  list-style-type: none;
+  margin-block: 0px;
+  margin-inline: 0px;
+  padding-inline-start: 0px;
+  border-collapse: collapse;
+}
+
+dialog,
+menu[role=menu][popover] {
+  box-shadow: 8px 8px 8px var( --huey-dark-background-color );
+}
+
+menu[role=menu][popover] {
+  position:absolute;
+  padding: 0px;
+  margin: 0px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: 
+    var( --huey-light-border-color ) 
+    var( --huey-dark-border-color ) 
+    var( --huey-dark-border-color ) 
+    var( --huey-light-border-color )
+  ;
+  background-color: var( --huey-medium-background-color );
+}
+
+menu[role=menu] > li[role=menuitem]:has( menu[role=menu] )::after {
+  font-family: var(--huey-icon-font-family);
+  font-size: var(--huey-icon-normal);
+  vertical-align: bottom;
+  color: var(--huey-icon-color-subtle);
+  margin: 0px 4px 0px 0px;
+  display: inline-block;
+  content: var( --icon-chevron-right );
+  position: relative;
+}
+
+menu > li[role=separator] {
+  border-width: 1px;
+  border-bottom-style: solid;
+  border-bottom-color: var(--huey-light-border-color);
+  margin-left: 4px;
+}
+
+/**
+* menu items with a popovertarget get ... to indicate there is an action that requires user interaction.
+**/
+menu[role=toolbar] > label[role=menuitem]:has( > button[popovertarget][popovertargetaction] )::after {
+  content: '...';
+}
+
+menu[role="menu"] {
+  
+  > li[role=menuitem] {
+    border-width: 1px;
+    border-color: var(--huey-light-border-color);
+  }
+}

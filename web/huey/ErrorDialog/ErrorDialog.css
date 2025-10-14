@@ -1,0 +1,41 @@
+dialog#errorDialog {
+  /* center the dialog */
+  left: calc( 50vw - 150px );
+  top: calc( 50vh - 200px );
+  width: 300px;
+  height: 400px;
+
+  resize: both;
+}
+
+dialog#errorDialog > header > #errorDialogTitle::before {
+  font-family: var( --huey-icon-font-family );
+  font-size: var( --huey-icon-large );
+  margin-right: .2em;
+  position:relative;
+  top:.2em;
+  color: red;
+  content: var( --icon-exclamation-circle );
+}
+
+
+dialog#errorDialog > header > #errorDialogTitle {
+}
+
+dialog#errorDialog > section#errorDialogDescription {
+}
+
+dialog#errorDialog > details#errorDialogDetails {
+}
+
+dialog#errorDialog > details#errorDialogDetails > summary {
+}
+
+dialog#errorDialog > details#errorDialogDetails > pre {
+  overflow: scroll;
+}
+
+
+dialog#errorDialog > details#errorDialogDetails:has( > pre:empty ) {
+  display: none;
+}

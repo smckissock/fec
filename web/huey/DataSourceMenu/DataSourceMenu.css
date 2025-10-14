@@ -1,0 +1,83 @@
+menu[role=toolbar] > label#currentDatasource {
+  anchor-name: --current-datasource-menu-label;
+}
+
+
+menu[role=menu]#dataSourceMenu {
+  position: fixed;
+  left: anchor( --current-datasource-menu-label left);
+  top: calc( anchor( --current-datasource-menu-label bottom) + 4px );
+  
+  > li[role=menuitem] {
+    
+    > input[type=radio] {
+      display: none;
+    }
+    
+  }
+  
+}
+
+/* this is used in the datasource menu when prompting for missing datasource */
+menu.dataSources {
+  padding-inline-start: 0px;
+
+  > li {
+    list-style-type: none;
+    white-space: nowrap;
+
+    > label {
+      white-space: nowrap;
+      vertical-align: super;
+    }
+    
+    > label::before {
+      display: inline-block;
+      font-family: var( --huey-icon-font-family ) !important;
+      font-size: var( --huey-icon-medium );
+      color: var( --huey-icon-color );
+      width: 24px;
+    }
+
+    > button {
+      display: none;
+    }
+  }
+}
+
+/**/
+
+menu.dataSources > li[data-nodetype=datasource][data-datasourcetype=file][data-filetype=csv] > label::before,
+#datasourcesUi details[data-nodetype=datasource][data-datasourcetype=file][data-filetype=csv] > summary > span.label::before {
+  content: var( --icon-file-type-csv );
+}
+
+menu.dataSources > li[data-nodetype=datasource][data-datasourcetype=file][data-filetype=tsv] > label::before,
+#datasourcesUi details[data-nodetype=datasource][data-datasourcetype=file][data-filetype=tsv] > summary > span.label::before {
+  content: var( --icon-file-type-csv );
+}
+
+menu.dataSources > li[data-nodetype=datasource][data-datasourcetype=file][data-filetype=txt] > label::before,
+#datasourcesUi details[data-nodetype=datasource][data-datasourcetype=file][data-filetype=txt] > summary > span.label::before {
+  content: var( --icon-file-type-txt );
+}
+
+menu.dataSources > li[data-nodetype=datasource][data-datasourcetype=file][data-filetype^=json] > label::before,
+#datasourcesUi details[data-nodetype=datasource][data-datasourcetype=file][data-filetype^=json] > summary > span.label::before {
+  content: var( --icon-file-type-js );
+}
+
+#datasourcesUi details[data-nodetype=datasource][data-datasourcetype=file][data-filetype=sql] > summary > span.label::before {
+  content: var( --icon-file-type-sql );
+}
+
+menu.dataSources > li[data-nodetype=datasource][data-datasourcetype=file][data-filetype=parquet] > label::before,
+#datasourcesUi details[data-nodetype=datasource][data-datasourcetype=file][data-filetype=parquet] > summary > span.label::before {
+  content: var( --icon-file-stack );
+}
+
+menu.dataSources > li[data-nodetype=datasource][data-datasourcetype=file][data-filetype=xlsx] > label::before,
+#datasourcesUi details[data-nodetype=datasource][data-datasourcetype=file][data-filetype=xlsx] > summary > span.label::before {
+  content: var( --icon-file-type-xls ) ;
+}
+

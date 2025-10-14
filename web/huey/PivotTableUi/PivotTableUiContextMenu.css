@@ -1,0 +1,66 @@
+
+menu[role=menu]#pivotTableContextMenu {
+
+  li {
+
+    /* icon for the filter submenu item */
+    > label[for=filterSubmenuActivate]:before {
+      content: var( --icon-filter ); 
+    }
+    
+    /* icons for the various filter submenu items */
+    > label[for=pivotTableContextMenuItemFilterIncludeValue]:before {
+      content: var( --icon-filter ); 
+    }
+
+    > label[for=pivotTableContextMenuItemFilterExcludeValue]:before {
+      content: var( --icon-filter-exclamation ); 
+    }
+
+    /* icon for the copy submenu item */
+    > label[for=copySubmenuActivate]:before {
+      /* clipboard-copy */
+      content: var( --icon-clipboard-copy ); 
+    }
+
+    /* icons for the various copy menu items*/
+    > label[for=pivotTableContextMenuItemCopyCell]:before {
+      content: var( --icon-layout-grid ); 
+    }
+
+    > label[for=pivotTableContextMenuItemCopyColumn]:before {
+      content: var( --icon-table-column ); 
+    }
+
+    > label[for=pivotTableContextMenuItemCopyColumnTuples]:before {
+      content: var( --icon-table-column ); 
+    }
+
+    > label[for=pivotTableContextMenuItemCopyRow]:before {
+      content: var( --icon-table-row ); 
+    }
+
+    > label[for=pivotTableContextMenuItemCopyRowTuples]:before {
+      content: var( --icon-table-row ); 
+    }
+
+    > label[for=pivotTableContextMenuItemCopyTable]:before {
+      content: var( --icon-table ); 
+    }
+  }
+  
+  /* Separator lines between the various copy menu items */ 
+  li:has(> label[for=pivotTableContextMenuItemCopyCell]) {
+    border-bottom-style: solid;
+  }
+
+  li:has(> label[for=pivotTableContextMenuItemCopyColumnTuples]) {
+    border-bottom-style: solid;
+  }
+
+  li:has(> label[for=pivotTableContextMenuItemCopyRowTuples]) {
+    border-bottom-style: solid;
+  }
+
+}
+

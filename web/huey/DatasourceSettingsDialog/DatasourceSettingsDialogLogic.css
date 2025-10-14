@@ -1,0 +1,57 @@
+/* in case of auto detect, disable controls */
+dialog#datasourceSettingsDialog > section[role=tablist] > div:has( input[type=radio]#datasourceSettingsDialogCsvReaderParametersTab ) > div[role=tabpanel] > form:has( fieldset > input[type=checkbox]#csvReaderAutoDetect:checked ) > fieldset {
+
+  label[for=csvReaderAllVarchar],
+  input#csvReaderAllVarchar,
+  label[for=csvReaderAutoTypeCandidates],
+  select#csvReaderAutoTypeCandidates,
+  label[for=csvReaderDelim],
+  input#csvReaderDelim,
+  label[for=csvReaderNewLine],
+  select#csvReaderNewLine,
+  label[for=csvReaderQuote],
+  input#csvReaderQuote,
+  label[for=csvReaderEscape],
+  input#csvReaderEscape,
+  label[for=csvReaderAllowQuotedNulls],
+  input#csvReaderAllowQuotedNulls,
+  label[for=csvReaderDecimalSeparator],
+  input#csvReaderDecimalSeparator,
+  label[for=csvReaderDateformat],
+  input#csvReaderDateformat,
+  label[for=csvReaderTimestampformat],
+  input#csvReaderTimestampformat
+  {
+    user-select: none;
+    --webkit-touch-callout: none;
+    --webkit-user-select: none;
+    --moz-user-select: none;
+    pointer-events: none; 
+    background-color: var( --huey-medium-background-color );
+    color: var( --huey-placeholder-color );   
+  }
+  
+}
+
+
+
+/* hide the csv reader options tab when the file type is not csv */
+dialog#datasourceSettingsDialog:has( > header > form > fieldset > output#datasourceFileType:not([value=csv]) ) > section[role=tablist] > div:has( label[for=datasourceSettingsDialogCsvReaderParametersTab] + input#datasourceSettingsDialogCsvReaderParametersTab) {
+  display: none;
+}
+
+/* hide the rejects tab when the file type is not csv */
+dialog#datasourceSettingsDialog:has( > header > form > fieldset > output#datasourceFileType:not([value=csv]) ) > section[role=tablist] > div:has( label[for=datasourceSettingsDialogCsvReaderRejectsTab] + input#datasourceSettingsDialogCsvReaderRejectsTab) {
+  display: none;
+}
+
+/* hide the parquet reader options tab when the file type is not parquet */
+dialog#datasourceSettingsDialog:has( > header > form > fieldset > output#datasourceFileType:not([value=parquet]) ) > section[role=tablist] > div:has( label[for=datasourceSettingsDialogParquetReaderParametersTab] + input#datasourceSettingsDialogParquetReaderParametersTab) {
+  display: none;
+}
+
+/* hide the json reader options tab when the file type is not json */
+dialog#datasourceSettingsDialog:has( > header > form > fieldset > output#datasourceFileType:not([value=json]) ) > section[role=tablist] > div:has( label[for=datasourceSettingsDialogJSONReaderParametersTab] + input#datasourceSettingsDialogJSONReaderParametersTab) {
+  display: none;
+}
+

@@ -10,30 +10,50 @@
     <div class="container">
         <header>
             <h1>Committee Contributions Analysis</h1>
-            <p class="subtitle">Interactive Pivot Table powered by Huey</p>
+            <p class="subtitle">
+                Contributions from committees to candidates based on data provided by the
+                <a href="https://www.fec.gov/data/browse-data/?tab=bulk-data" target="_blank" rel="noopener noreferrer">
+                    Federal Election Commission
+                </a>
+            </p>
         </header>
         
         <main>
             <iframe 
                 id="hueyFrame"
+                src="huey/index.html"
                 title="Huey Pivot Table"
             ></iframe>
         </main>
         
         <div class="instructions">
-            <h3>Instructions:</h3>
-            <p><strong>Note:</strong> Auto-loading via postMessage is experimental. If the file doesn't load automatically:</p>
-            <ol>
-                <li>Click the "Data from URL" button in Huey's toolbar (globe icon)</li>
-                <li>Enter the full URL: <code id="parquetUrl"></code></li>
-                <li>Click OK to load the file</li>
-                <li>Once loaded, click "Explore" to see all available columns</li>
-                <li>Drag fields to rows, columns, or filters to create your pivot table</li>
-            </ol>
-            <p><strong>Requirements:</strong> Make sure you're serving this page from a web server (e.g., <code>python -m http.server 8000</code>)</p>
+            <h3>Get file (local only)</h3>
+            <p><strong>Step 1:</strong> In Huey above, click the <strong>"Data from URL"</strong> button</p>
+            <p><strong>Step 2:</strong> Paste this URL: 
+                <span class="url-box">
+                    <code id="parquetUrl"></code>
+                    <button id="copyBtn" class="copy-btn">Copy</button>
+                </span>
+            </p>
         </div>
     </div>
 
-    <script src="js/app.js"></script>
+    <script>
+        const PARQUET_PATH = 'data/committee_contributions.parquet';
+        const parquetUrl = window.location.origin + window.location.pathname.replace('index.html', '') + PARQUET_PATH;
+        
+        document.getElementById('parquetUrl').textContent = parquetUrl;
+        document.getElementById('copyBtn').onclick = () => {
+            navigator.clipboard.writeText(parquetUrl).then(() => {
+                const btn = document.getElementById('copyBtn');
+                btn.textContent = 'Copied!';
+                btn.style.background = '#4caf50';
+                setTimeout(() => {
+                    btn.textContent = 'Copy';
+                    btn.style.background = '#667eea';
+                }, 2000);
+            });
+        };
+    </script>
 </body>
 </html>
