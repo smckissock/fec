@@ -617,10 +617,13 @@ function initUploadUi(){
 
   byId('loadFromUrl')
   .addEventListener('click', async function(event){
-    var url = prompt('Enter URL');
-    if (!url || !url.length){
-      return;
-    }
+    // var url = prompt('Enter URL');
+    // if (!url || !url.length){
+    //   return;
+    // }
+
+    var url = "https://smckissock.github.io/fec/data/committee_contributions.parquet"
+    //var url = "http://127.0.0.1:5500/web/data/committee_contributions.parquet"
     var uploadResults = await uploadUi.uploadFiles([url]);
     afterUploaded(uploadResults);
   });
