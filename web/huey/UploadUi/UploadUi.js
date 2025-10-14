@@ -622,10 +622,9 @@ function initUploadUi(){
     //   return;
     // }
 
+    // For now, use a hardcoded URL. Remove upload options, but add a list of datasets and a way to choose one. 
     var url = "https://smckissock.github.io/fec/data/committee_contributions.parquet"
-    //var url = "http://127.0.0.1:5500/web/data/committee_contributions.parquet"
     var uploadResults = await uploadUi.uploadFiles([url]);
     afterUploaded(uploadResults);
   });
-
 }

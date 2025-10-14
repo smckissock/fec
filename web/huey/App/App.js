@@ -229,4 +229,14 @@ function initApplication(){
   if (postMessageInterface) {
     postMessageInterface.sendReadyMessage();
   }
+
+  // Auto-load parquet file on startup if no current route
+  // This is a fork for now until we have a UI for choosing datasets
+  (async function() {
+    if (!currentRoute) {
+      var url = "https://smckissock.github.io/fec/data/committee_contributions.parquet";
+      var uploadResults = await uploadUi.uploadFiles([url]);
+      afterUploaded(uploadResults);
+    }
+  })();
 }

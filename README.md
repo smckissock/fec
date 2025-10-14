@@ -9,3 +9,7 @@
 - TODO: Add bar charts and sankey diagrams to analyse money flows by race, state, committee, etc
 
 ##### Note: this is a work in progress, so do not take the data as definitive. Instead refer to [FEC](https://www.fec.gov/) or [OpenSecrets](https://www.opensecrets.org/) 
+
+---
+
+![Screenshot](./screenshot.jpg)
