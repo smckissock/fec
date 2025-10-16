@@ -1,6 +1,4 @@
 --  Run this in snowflake UI first to create the database and schema 
-
-
 CREATE OR REPLACE DATABASE FEC COMMENT='Data from Fedderal Election Commission website: https://www.fec.gov/data/browse-data/?tab=bulk-data';
 
 

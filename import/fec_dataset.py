@@ -149,11 +149,12 @@ class FecDataset:
                         {data_cols},
                         CURRENT_TIMESTAMP() AS INGEST_TIMESTAMP,
                         METADATA$FILENAME AS SOURCE_FILE_NAME,
-                        METADATA$FILE_ROW_NUMBER AS SOURCE_FILE_ROW_NUMBER
+                        METADATA$FILE_ROW_NUMBER AS SOURCE_FILE_ROW_NUMBER,
+                        '20{year}' AS SOURCE_FILE_YEAR
                     FROM @{self.stage_name}
                 )
+                FILES = ('{data_file_path.name}.gz')
                 FILE_FORMAT = (FORMAT_NAME = {self.file_format_name})
-                PATTERN = '.*{data_file_path.name}\\.gz$'
                 ON_ERROR = 'CONTINUE';
             """
             cur.execute(copy_sql)
