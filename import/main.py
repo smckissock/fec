@@ -1,4 +1,4 @@
-# main_snowflake.py
+# main.py
 import os
 import shutil
 from pathlib import Path
@@ -44,18 +44,18 @@ def main():
     # Initialize shared stage + file format
     FecDataset.setup(workdir, conn)
 
-    # FEC datasets (same set you had, mapping code → data_code as needed)
+    # Note: Tables must already exist in Snowflake with the correct schema
     file_types = [
-        FecDataset("CANDIDATE",               "cn",        "cn",     "Candidate master"),
+        # FecDataset("CANDIDATE",               "cn",        "cn",     "Candidate master"),
         # FecDataset("CANDIDATE_COMMITTEE",     "ccl",       "ccl",    "Candidate-committee linkages"),
         # FecDataset("COMMITTEE",               "cm",        "cm",     "Committee master"),
         # FecDataset("COMMITTEE_CONTRIBUTION",  "pas2",      "itpas2", "Contributions from committees to candidates and independent expenditures"),
-        # FecDataset("INDIVIDUAL_CONTRIBUTION", "indiv",     "itcont", "Contributions by individuals"),
+        FecDataset("INDIVIDUAL_CONTRIBUTION", "indiv",     "itcont", "Contributions by individuals"),
     ]
 
+    # Process each dataset (downloads and loads all years 2000-2026)
     for ft in file_types:
-        ft.download()
-        ft.make_table()
+        ft.process()
 
     conn.close()
 

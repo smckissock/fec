@@ -2,7 +2,7 @@
 
 **[Live Demo](https://smckissock.github.io/fec/)**
 
-- Python scripts (in /import) to move [FEC data](https://www.fec.gov/data/browse-data/?tab=bulk-data) to tables in Snowflake 
+- Python scripts (in /import) to move [FEC data](https://www.fec.gov/data/browse-data/?tab=bulk-data) to tables in Snowflake. Largest table has individual contributions since 2000 - 261 million records.  
 - Dbt Core (in /transform) to setup reference data, populate a star schema, and make views for analysis
 - pyarrow (in /export) to export views as Parquet files for use on web site
 - [Huey](https://github.com/rpbouman/huey) (in /web) to present contribution data as pivot tables
