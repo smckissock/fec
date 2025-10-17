@@ -1,7 +1,6 @@
-# FEC Compiled Campaign Contributions
+# FEC Campaign Contributions 2000-2025
 
-Download data compiled by the Federal Election Commission about contributions to Presidential, Senate, and House candidates between 2000 and 2026. Transform it into a star schema snowflake database using dbt and make subsets available for analysis in the browser using Huey pivot tables.
-
+Campaign finance data from the Federal Election Commission covering Presidential, Senate, and House candidates from 2000 to 2026. Pivot tables to analyze political contributions.
 ### [Live Demo](https://smckissock.github.io/fec/)
 
 - Python scripts (in import) to move [FEC data](https://www.fec.gov/data/browse-data/?tab=bulk-data) to tables in Snowflake. Largest table has individual contributions since 2000. 261 million records.  
@@ -46,8 +45,8 @@ Download data compiled by the Federal Election Commission about contributions to
 ---
 
 ### Import
-
-Tables are [created](https://github.com/smckissock/fec/blob/main/import/RAW_TABLES.sql) that have match the ciource data, with additions of timestamps, source filenames, and source row numbers. Another column for the 2 year election cycle is also added because it is required by the build dimensional tables.
+- Setup database, initial tables, and environment variables with this [sql script](./import/setup_db.sql)
+- The tables match the source data, with additions of timestamps, source filenames, and source row numbers. Another column for the 2 year election cycle is also added because it is required by the build dimensional tables.
 
 
 | Heading from [FEC Website](https://www.fec.gov/data/browse-data/?tab=bulk-data) | Snowflake Table | Description | Records (2000-2026) |
@@ -63,7 +62,7 @@ Tables are [created](https://github.com/smckissock/fec/blob/main/import/RAW_TABL
 
 #### Raw Schema
 
-- 5 tables above imported by pythons scripts
+- 5 tables imported from FEC by [pythons scripts](./import)
 - About a dozen csvs based on codes for different fields - state, office, party, etc. Imported via dbt seed mechanism, but with an added integer primary key. Csv files are [here](https://github.com/smckissock/fec/tree/main/transform/seeds)
 
 
