@@ -235,7 +235,7 @@ models:
   - name: dim_candidate
     description: "Dimensional model of FEC candidates with integer foreign keys to reference tables"
     tests:
-      - rowcount_match:
+      - rowcount_match_with_default:
           compare_to: "{{ source('raw', 'candidate') }}"
     columns:
       - name: id
@@ -323,12 +323,17 @@ models:
         description: "Mailing address city"
         
       - name: zip_code
-        description: "Mailing address ZIP code"          
+        description: "Mailing address ZIP code"    
+
+      - name: source_file_year
+        description: "Year from the FEC file"
+        tests:
+          - not_null        
 
   - name: dim_committee
     description: "Dimensional model of FEC committees with integer foreign keys to reference tables"
     tests:
-      - rowcount_match:
+      - rowcount_match_with_default:
           compare_to: "{{ source('raw', 'committee') }}"
     columns:
       - name: id
@@ -340,7 +345,7 @@ models:
       - name: cmte_id
         description: "FEC committee identification number"
         tests:
-          - unique
+          # NOT Unique, because the same ID can appear for each election cycle
           - not_null
           
       - name: committee_name
@@ -431,6 +436,10 @@ models:
       - name: connected_organization_name
         description: "Name of connected organization"
 
+      - name: source_file_year
+        description: "Year from the FEC file"
+        tests:
+          - not_null
 
   - name: fact_committee_contribution
     description: "Committee contributions to candidates"
@@ -526,7 +535,7 @@ models:
 
       - name: transaction_date
         description: "Date of the transaction"
-        # For 2025-2026 15 of these were null
+        # For 2025-2026 15 of these were null - need to fix somehow..
         # tests:
         #  - not_null    
 
@@ -558,10 +567,14 @@ models:
         
       - name: memo_code
         description: "Memo code"
-        
+
       - name: memo_text
         description: "Memo text"     
 
+      - name: source_file_year
+        description: "Year from the FEC file"
+        tests:
+          - not_null
 
   - name: fact_individual_contribution
     description: "Individual contributions to committees"
@@ -682,7 +695,12 @@ models:
         description: "Memo code"
         
       - name: memo_text
-        description: "Memo text"       
+        description: "Memo text"      
+
+      - name: source_file_year
+        description: "Year from the FEC file"
+        tests:
+          - not_null   
 
 
   # Views

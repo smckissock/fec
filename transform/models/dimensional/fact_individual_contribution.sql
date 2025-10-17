@@ -59,19 +59,22 @@ transformed as (
         try_to_number(s.transaction_amt, 10, 2) as transaction_amount,
         
         -- Contributor information
-        s.name as contributor_name,
-        s.city as contributor_city,
-        s.zip_code as contributor_zip_code,
-        s.employer as contributor_employer,
-        s.occupation as contributor_occupation,
+        coalesce(s.name, '') as contributor_name,
+        coalesce(s.city, '') as contributor_city,
+        coalesce(s.zip_code, '') as contributor_zip_code,
+        coalesce(s.employer, '') as contributor_employer,
+        coalesce(s.occupation, '') as contributor_occupation,
         
         -- Other fields
-        s.other_id,
-        s.memo_cd as memo_code,
-        s.memo_text
+        coalesce(s.other_id, '') as other_id,
+        coalesce(s.memo_cd, '') as memo_code,
+        coalesce(s.memo_text, '') as memo_text,
+        coalesce(s.source_file_year, '') as source_file_year
         
     from source s
-    left join dim_committee cmte on s.cmte_id = cmte.cmte_id
+    left join dim_committee cmte 
+        on s.cmte_id = cmte.cmte_id 
+        and coalesce(s.source_file_year, '') = coalesce(cmte.source_file_year, '')
     left join dim_state st on s.state = st.code
     left join dim_ammendment_code ac on s.amndt_ind = ac.code
     left join dim_report_type rt on s.rpt_tp = rt.code

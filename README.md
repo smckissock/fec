@@ -7,7 +7,7 @@ Campaign finance data from the Federal Election Commission covering Presidential
 - Dbt Core (in transform) to setup reference data, populate a star schema, and make views for analysis
 - pyarrow (in export) to export views as Parquet files for use on web site
 - [Huey](https://github.com/rpbouman/huey) (in web) to present contribution data as pivot tables
-- TODO: Add bar charts and sankey diagrams to analyse money flows by race, state, committee, etc
+
 
 
 ##### Note: this is a work in progress, so do not take the data as definitive. Instead refer to [FEC](https://www.fec.gov/) or [OpenSecrets](https://www.opensecrets.org/) 
@@ -19,7 +19,7 @@ Campaign finance data from the Federal Election Commission covering Presidential
     flowchart LR
         A[Federal Election Commission<br>Bulk Data] --> B[(Raw<br>Schema)]
         B --> |dbt| C[(Dimensional<br>Schema)]
-        C --> |dbt| D[(Analytical<br>Schema)]
+        C --> |dbt| D[(Analysis<br>Schema)]
         D --> E[Parquet<br>Files]
         E --> F[**Huey**<br>Pivot<br>Tables]
 
@@ -27,7 +27,7 @@ Campaign finance data from the Federal Election Commission covering Presidential
             A
         end
         
-        subgraph Transform
+        subgraph "Transform (Snowflake)"
             B
             C 
             D
@@ -37,7 +37,7 @@ Campaign finance data from the Federal Election Commission covering Presidential
             E
         end 
 
-        subgraph Web
+        subgraph Webrtrt
             F 
         end
 ```
@@ -46,7 +46,7 @@ Campaign finance data from the Federal Election Commission covering Presidential
 
 ### Import
 - Setup database, initial tables, and environment variables with this [sql script](./import/setup_db.sql)
-- The tables match the source data, with additions of timestamps, source filenames, and source row numbers. Another column for the 2 year election cycle is also added because it is required by the build dimensional tables.
+- The tables match the source data, with additional columns for timestamp, source filename, and source row number. Another column for the 2 year election cycle is also required to build dimensional tables.
 
 
 | Heading from [FEC Website](https://www.fec.gov/data/browse-data/?tab=bulk-data) | Snowflake Table | Description | Records (2000-2026) |
@@ -62,7 +62,7 @@ Campaign finance data from the Federal Election Commission covering Presidential
 
 #### Raw Schema
 
-- 5 tables imported from FEC by [pythons scripts](./import)
+- 5 tables imported from FEC by [python scripts](./import)
 - About a dozen csvs based on codes for different fields - state, office, party, etc. Imported via dbt seed mechanism, but with an added integer primary key. Csv files are [here](https://github.com/smckissock/fec/tree/main/transform/seeds)
 
 

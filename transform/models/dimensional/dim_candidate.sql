@@ -1,7 +1,8 @@
 {{
     config(
         materialized='table',
-        schema='dimensional'
+        schema='dimensional',
+        unique_key='id'
     )
 }}
 
@@ -29,9 +30,31 @@ dim_incumbent_challenger_status as (
     select * from {{ ref('dim_incumbent_challenger_status') }}
 ),
 
+-- Add a default record with ID 1
+default_record as (
+    select 
+        1 as id,
+        'N/A' as cand_id,
+        'Not Applicable' as cand_name,
+        1 as party_id,
+        1 as office_id,
+        1 as office_state_id,
+        1 as candidate_status_id,
+        1 as incumbent_challenger_status_id,
+        1 as mailing_state_id,
+        '' as election_year,
+        '' as office_district,
+        '' as principal_campaign_committee,
+        '' as street_1,
+        '' as street_2,
+        '' as city,
+        '' as zip_code,
+        '' as source_file_year
+),
+
 transformed as (
     select
-        row_number() over (order by s.cand_id) as id,
+        row_number() over (order by s.cand_id) + 1 as id,  -- Start from 2 to leave 1 for default record
         s.cand_id as cand_id,
         s.cand_name,
         
@@ -43,14 +66,15 @@ transformed as (
         coalesce(ici.id, 1) as incumbent_challenger_status_id,
         coalesce(st.id, 1) as mailing_state_id,
         
-        -- Descriptive attributes
-        s.cand_election_yr as election_year,
-        s.cand_office_district as office_district,
-        s.cand_pcc as principal_campaign_committee,
-        s.cand_st1 as street_1,
-        s.cand_st2 as street_2,
-        s.cand_city as city,
-        s.cand_zip as zip_code
+        -- Descriptive attributes with coalesce to prevent null values
+        coalesce(s.cand_election_yr, '') as election_year,
+        coalesce(s.cand_office_district, '') as office_district,
+        coalesce(s.cand_pcc, '') as principal_campaign_committee,
+        coalesce(s.cand_st1, '') as street_1,
+        coalesce(s.cand_st2, '') as street_2,
+        coalesce(s.cand_city, '') as city,
+        coalesce(s.cand_zip, '') as zip_code,
+        coalesce(s.source_file_year, '') as source_file_year
     from source s
     left join dim_party p 
         on s.cand_pty_affiliation = p.code
@@ -64,6 +88,13 @@ transformed as (
         on s.cand_ici = ici.code
     left join dim_state st 
         on s.cand_st = st.code
+),
+
+-- Union the default record with the transformed records
+final as (
+    select * from default_record
+    union all
+    select * from transformed
 )
 
-select * from transformed
+select * from final
