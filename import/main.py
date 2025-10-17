@@ -46,10 +46,10 @@ def main():
 
     # Note: Tables must already exist in Snowflake with the correct schema
     file_types = [
-        # FecDataset("CANDIDATE",               "cn",        "cn",     "Candidate master"),
-        #FecDataset("CANDIDATE_COMMITTEE",     "ccl",       "ccl",    "Candidate-committee linkages"),
-        #FecDataset("COMMITTEE",               "cm",        "cm",     "Committee master"),
-        #FecDataset("COMMITTEE_CONTRIBUTION",  "pas2",      "itpas2", "Contributions from committees to candidates and independent expenditures"),
+        FecDataset("CANDIDATE",               "cn",        "cn",     "Candidate master"),
+        FecDataset("CANDIDATE_COMMITTEE",     "ccl",       "ccl",    "Candidate-committee linkages"),
+        FecDataset("COMMITTEE",               "cm",        "cm",     "Committee master"),
+        FecDataset("COMMITTEE_CONTRIBUTION",  "pas2",      "itpas2", "Contributions from committees to candidates and independent expenditures"),
         FecDataset("INDIVIDUAL_CONTRIBUTION", "indiv",     "itcont", "Contributions by individuals"),
     ]
 
