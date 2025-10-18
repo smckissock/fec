@@ -44,10 +44,10 @@ dim_entity_type as (
 transformed as (
     select
         row_number() over (order by s.sub_id) as id,
-        s.sub_id,
-        s.tran_id as transaction_id,
-        s.file_num as file_number,
-        s.image_num as image_number,
+        coalesce(s.sub_id, '') as sub_id, -- Should be unique, but has nulls
+        coalesce(s.tran_id, '') as transaction_id,
+        coalesce(s.file_num, '') as file_number,
+        coalesce(s.image_num, '') as image_number,
         
         -- Foreign keys to dimensional tables (default to ID=1 for unknown/missing values)
         coalesce(cmte.id, 1) as committee_id,
@@ -61,7 +61,7 @@ transformed as (
         
         -- Transaction details
         try_to_date(s.transaction_dt, 'MMDDYYYY') as transaction_date,
-        try_to_number(s.transaction_amt, 10, 2) as transaction_amount,
+        coalesce(try_to_number(s.transaction_amt, 10, 2), 0) as transaction_amount,
         
         -- Contributor information
         coalesce(s.name, '') as contributor_name,

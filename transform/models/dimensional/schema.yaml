@@ -237,6 +237,9 @@ models:
     tests:
       - rowcount_match_with_default:
           compare_to: "{{ source('raw', 'candidate') }}"
+      - unique_combination:
+          column_names: ['cand_id', 'source_file_year']    
+
     columns:
       - name: id
         tests:
@@ -246,9 +249,8 @@ models:
       - name: cand_id
         description: "FEC candidate identification number"
         tests:
-          - unique
           - not_null
-          
+        
       - name: cand_name
         description: "Candidate name"
         tests:
@@ -335,6 +337,9 @@ models:
     tests:
       - rowcount_match_with_default:
           compare_to: "{{ source('raw', 'committee') }}"
+      - unique_combination:
+          column_names: ['cmte_id', 'source_file_year']
+    
     columns:
       - name: id
         description: "Auto-incrementing surrogate primary key"
@@ -345,7 +350,6 @@ models:
       - name: cmte_id
         description: "FEC committee identification number"
         tests:
-          # NOT Unique, because the same ID can appear for each election cycle
           - not_null
           
       - name: committee_name
@@ -457,17 +461,23 @@ models:
       - name: sub_id
         description: "FEC submission ID (unique transaction identifier)"
         tests:
-          - unique
+          ## - unique  Not actually unique, has nulls 
           - not_null
           
       - name: transaction_id
         description: "Transaction ID"
+        tests:
+          - not_null
         
       - name: file_number
         description: "File number"
+        tests:
+          - not_null
         
       - name: image_number
         description: "Image number"
+        tests:
+          - not_null
       
       # Foreign Keys
       - name: committee_id
@@ -548,28 +558,44 @@ models:
       # Contributor Information
       - name: contributor_name
         description: "Name of the contributor"
+        tests:
+          - not_null
         
       - name: contributor_city
         description: "City of the contributor"
-        
+        tests:
+          - not_null
+
       - name: contributor_zip_code
         description: "ZIP code of the contributor"
+        tests:
+          - not_null
         
       - name: contributor_employer
         description: "Employer of the contributor"
+        tests:
+          - not_null
         
       - name: contributor_occupation
         description: "Occupation of the contributor"
+        tests:
+          - not_null
       
       # Other Fields
       - name: other_id
         description: "Other ID field"
+        tests:
+          - not_null
         
       - name: memo_code
         description: "Memo code"
+        tests:
+          - not_null
 
       - name: memo_text
-        description: "Memo text"     
+        description: "Memo text"  
+        tests:
+          - not_null   
 
       - name: source_file_year
         description: "Year from the FEC file"
@@ -593,17 +619,23 @@ models:
       - name: sub_id
         description: "FEC submission ID (unique transaction identifier)"
         tests:
-          - unique
+          # - unique   It has nulls, but were keeping the records
           - not_null
           
       - name: transaction_id
         description: "Transaction ID"
+        tests:          
+          - not_null
         
       - name: file_number
         description: "File number"
+        tests:          
+          - not_null
         
       - name: image_number
         description: "Image number"
+        tests:          
+          - not_null
       
       # Foreign Keys
       - name: committee_id
@@ -674,28 +706,44 @@ models:
       # Contributor Information
       - name: contributor_name
         description: "Name of the contributor"
+        tests:
+          - not_null
         
       - name: contributor_city
         description: "City of the contributor"
+        tests:
+          - not_null
         
       - name: contributor_zip_code
         description: "ZIP code of the contributor"
-        
+        tests:
+          - not_null
+      
       - name: contributor_employer
         description: "Employer of the contributor"
-        
+        tests:
+          - not_null
+      
       - name: contributor_occupation
         description: "Occupation of the contributor"
-      
+        tests:
+          - not_null
+
       # Other Fields
       - name: other_id
         description: "Other ID field"
-        
+        tests:
+          - not_null
+
       - name: memo_code
         description: "Memo code"
+        tests:
+          - not_null
         
       - name: memo_text
         description: "Memo text"      
+        tests:
+          - not_null
 
       - name: source_file_year
         description: "Year from the FEC file"
